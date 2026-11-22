@@ -11,7 +11,7 @@
 ### 1. 安装 Skill，并启用每轮自动蒸馏
 
 ```text
-请从 https://github.com/youngjunning/joyally-skills/tree/main/skills/productivity/distill-me 把 distill-me Skill 安装到用户级全局目录 ~/.agents/skills/distill-me，只安装这一份。检查千问办公兼容入口 ~/.qwenworkcn/skills：不存在时创建指向 ~/.agents/skills 的软链接，已经是该链接时保留，存在冲突文件或目录时不要覆盖并向我报告。安装时读取其中的 references/host-integration.md，把 distill-me 的每轮自动蒸馏区块写入当前 Agent 确实会在每轮读取的用户级 AGENTS.md 或等价长期指令：修改前先备份，保留其他已有指令，使用安装后的 Skill 绝对路径，按标记区块幂等写入并回读验收。只有 Skill、兼容入口和长期指令都验收通过，才告诉我“自动蒸馏已启用”，并报告三者的位置与回读结果；如果宿主没有等价的每轮指令入口，只报告“Skill 已安装、自动蒸馏未启用”，不要安装 Hook，也不要把自动匹配 Skill 当成每轮自动调用。
+请从 https://github.com/youngjunning/distill-me 把 distill-me Skill 安装到用户级全局目录 ~/.agents/skills/distill-me，只安装这一份。检查千问办公兼容入口 ~/.qwenworkcn/skills：不存在时创建指向 ~/.agents/skills 的软链接，已经是该链接时保留，存在冲突文件或目录时不要覆盖并向我报告。安装时读取其中的 references/host-integration.md，把 distill-me 的每轮自动蒸馏区块写入当前 Agent 确实会在每轮读取的用户级 AGENTS.md 或等价长期指令：修改前先备份，保留其他已有指令，使用安装后的 Skill 绝对路径，按标记区块幂等写入并回读验收。只有 Skill、兼容入口和长期指令都验收通过，才告诉我“自动蒸馏已启用”，并报告三者的位置与回读结果；如果宿主没有等价的每轮指令入口，只报告“Skill 已安装、自动蒸馏未启用”，不要安装 Hook，也不要把自动匹配 Skill 当成每轮自动调用。
 ```
 
 ### 2. 初始化本地工作台
@@ -51,7 +51,7 @@
 ### 更新 Skill
 
 ```text
-请把本机已安装的 distill-me 更新到 https://github.com/youngjunning/joyally-skills/tree/main/skills/productivity/distill-me 的最新版本，并统一放到 ~/.agents/skills/distill-me，保留现有本地数据。检查 ~/.qwenworkcn/skills 是否为指向 ~/.agents/skills 的软链接：不存在时创建，已有冲突实体时不覆盖并报告。更新后读取 references/host-integration.md；先备份用户级 AGENTS.md 或等价长期指令，再按标记新增或整体替换 distill-me 区块，随后回读确认区块只出现一次、使用更新后的 Skill 绝对路径且没有残留占位符。再重新打开工作台并告诉我 Skill、兼容入口、长期指令和工作台的验收结果，不要部署。
+请把本机已安装的 distill-me 更新到 https://github.com/youngjunning/distill-me 的最新版本，并统一放到 ~/.agents/skills/distill-me，保留现有本地数据。检查 ~/.qwenworkcn/skills 是否为指向 ~/.agents/skills 的软链接：不存在时创建，已有冲突实体时不覆盖并报告。更新后读取 references/host-integration.md；先备份用户级 AGENTS.md 或等价长期指令，再按标记新增或整体替换 distill-me 区块，随后回读确认区块只出现一次、使用更新后的 Skill 绝对路径且没有残留占位符。再重新打开工作台并告诉我 Skill、兼容入口、长期指令和工作台的验收结果，不要部署。
 ```
 
 ## 本地与隐私
