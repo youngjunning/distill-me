@@ -12,7 +12,12 @@ metadata:
 
 ## 安装与初始化
 
-把 Skill 安装到用户级全局目录 `~/.agents/skills/distill-me`。千问办公通过 `~/.qwenworkcn/skills -> ~/.agents/skills` 的兼容软链接共享同一份安装：链接不存在时创建，已有正确链接时保留，已有冲突实体时不覆盖并报告。安装时读取 [宿主接入说明](references/host-integration.md)，把每轮自动蒸馏区块写入当前 Agent 确实会读取的用户级 `AGENTS.md` 或等价长期指令。修改前备份，保留其他已有指令；写入安装后的 Skill 绝对路径，并按说明回读验收。只有 Skill、兼容入口和长期指令都验收通过，才能报告“自动蒸馏已启用”；宿主没有等价入口时，报告“Skill 已安装、自动蒸馏未启用”，保留手动调用能力。
+把 Skill 安装到用户级全局目录 `~/.agents/skills/distill-me`，再按当前宿主读取 [宿主接入说明](references/host-integration.md)：
+
+- **Codex**：备份并更新 `~/.codex/AGENTS.md`。
+- **千问办公**：确认 `~/.qwenworkcn/skills -> ~/.agents/skills`，再备份并更新 `~/.qwenworkcn/awareness/main/AGENTS.md`；兼容入口存在冲突实体时不覆盖并报告。
+
+两种宿主都保留原有指令，写入安装后的 Skill 绝对路径，并按说明回读验收。只有当前宿主所需的 Skill、兼容入口和 `AGENTS.md` 全部验收通过，才能报告“自动蒸馏已启用”；否则报告“Skill 已安装、自动蒸馏未启用”，保留手动调用能力。
 
 初始化本地工作台时：
 

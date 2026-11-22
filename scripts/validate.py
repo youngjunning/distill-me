@@ -8,6 +8,12 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def section(text: str, start: str, end: str) -> str:
+    if start not in text or end not in text:
+        return ""
+    return text.split(start, 1)[1].split(end, 1)[0]
+
+
 def main() -> None:
     errors: list[str] = []
     required = [
@@ -42,6 +48,41 @@ def main() -> None:
         errors.append("README still points to the former monorepo path")
     if "https://github.com/youngjunning/distill-me" not in readme:
         errors.append("README is missing the standalone repository URL")
+
+    for expected in (
+        "### 第一步 A：Codex 安装",
+        "### 第一步 B：千问办公安装",
+        "~/.codex/AGENTS.md",
+        "~/.qwenworkcn/awareness/main/AGENTS.md",
+    ):
+        if expected not in readme:
+            errors.append(f"README is missing host-specific install contract: {expected}")
+
+    codex_install = section(readme, "### 第一步 A：Codex 安装", "### 第一步 B：千问办公安装")
+    qwen_install = section(readme, "### 第一步 B：千问办公安装", "### 第二步：初始化本地工作台")
+    codex_update = section(readme, "### 在 Codex 更新 Skill", "### 在千问办公更新 Skill")
+    qwen_update = section(readme, "### 在千问办公更新 Skill", "## 本地与隐私")
+
+    for label, content in (("Codex install", codex_install), ("Codex update", codex_update)):
+        if "~/.codex/AGENTS.md" not in content:
+            errors.append(f"{label} is missing the Codex AGENTS.md path")
+        if "~/.qwenworkcn/" in content:
+            errors.append(f"{label} contains QwenWork-specific paths")
+
+    for label, content in (("QwenWork install", qwen_install), ("QwenWork update", qwen_update)):
+        for expected in (
+            "~/.qwenworkcn/awareness/main/AGENTS.md",
+            "~/.qwenworkcn/skills",
+            "~/.agents/skills",
+        ):
+            if expected not in content:
+                errors.append(f"{label} is missing QwenWork contract: {expected}")
+        if "~/.codex/AGENTS.md" in content:
+            errors.append(f"{label} contains the Codex AGENTS.md path")
+
+    for expected in ("~/.codex/AGENTS.md", "~/.qwenworkcn/awareness/main/AGENTS.md"):
+        if expected not in skill or expected not in integration:
+            errors.append(f"skill contract is missing host instruction path: {expected}")
 
     for marker in ("<!-- BEGIN distill-me -->", "<!-- END distill-me -->"):
         if integration.count(marker) != 1:
